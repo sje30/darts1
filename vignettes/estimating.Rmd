@@ -1,0 +1,44 @@
+---
+title: "estimating"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{estimating}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(darts)
+```
+
+This is my simple vignette to run the code.
+
+```{r seed}
+set.seed(100)
+```
+
+```{r}
+darts <- throw_n_darts(1000)
+inside <- inside(darts)
+plot_dartboard(darts, inside)
+```
+
+```{r}
+plot_estimates <- function(darts, inside)  {
+  estimates <- 4 * ( cumsum(inside) / 1:nrow(darts) )
+  plot(estimates, type='l')
+  abline(h=pi, col='green')
+}
+```
+
+
+```{r}
+plot_estimates(darts, inside)
+```
